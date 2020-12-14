@@ -81,29 +81,27 @@ void loop() {
   float gyro_x, gyro_y, gyro_z, gyro[3];
   float tempC, tempF;
 
-  while(1) {
-    // Fetch and print temperature values
-    tempC = HTS.readTemperature();
-    tempF = tempC * 1.8 + 32;
-    printTempReadings(tempC, tempF);
-  
-    // Fetch and print accelerometer values
-    if (IMU.accelerationAvailable()) {
-      IMU.readAcceleration(acc_x, acc_y, acc_z);
-      acc[0] = acc_x;
-      acc[1] = acc_y;
-      acc[2] = acc_z;
-      printAccelReadings(acc_x, acc_y, acc_z);
-    }
-  
-    // Fetch and print gyroscope values
-    if (IMU.gyroscopeAvailable()) {
-      IMU.readGyroscope(gyro_x, gyro_y, gyro_z);
-      gyro[0] = gyro_x;
-      gyro[1] = gyro_y;
-      gyro[2] = gyro_z;
-      printGyroReadings(gyro_x, gyro_y, gyro_z);
-    }
+  // Fetch and print temperature values
+  tempC = HTS.readTemperature();
+  tempF = tempC * 1.8 + 32;
+  printTempReadings(tempC, tempF);
+
+  // Fetch and print accelerometer values
+  if (IMU.accelerationAvailable()) {
+    IMU.readAcceleration(acc_x, acc_y, acc_z);
+    acc[0] = acc_x;
+    acc[1] = acc_y;
+    acc[2] = acc_z;
+    printAccelReadings(acc_x, acc_y, acc_z);
+  }
+
+  // Fetch and print gyroscope values
+  if (IMU.gyroscopeAvailable()) {
+    IMU.readGyroscope(gyro_x, gyro_y, gyro_z);
+    gyro[0] = gyro_x;
+    gyro[1] = gyro_y;
+    gyro[2] = gyro_z;
+    printGyroReadings(gyro_x, gyro_y, gyro_z);
   }
 
   //floatangle = tiltAngle(gyro, acc);
