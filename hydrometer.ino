@@ -108,6 +108,6 @@ void loop() {
   Serial.println(hydrometerService.uuid());
   */
   
-  Serial.println();
+  Serial.println("Looping");
   delay(3000);
 }
