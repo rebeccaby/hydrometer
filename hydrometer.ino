@@ -79,10 +79,13 @@ void printGyroReadings(float x, float y, float z) {
 void loop() {
   float acc_x, acc_y, acc_z, acc[3];
   float gyro_x, gyro_y, gyro_z, gyro[3];
+  float tempC, tempF;
 
   while(1) {
     // Fetch and print temperature values
-    printTempReadings(HTS.readTemperature(CELSIUS), HTS.readTemperature(FAHRENHEIT));
+    tempC = HTS.readTemperature();
+    tempF = tempC * 1.8 + 32;
+    printTempReadings(tempC, tempF);
   
     // Fetch and print accelerometer values
     if (IMU.accelerationAvailable()) {
