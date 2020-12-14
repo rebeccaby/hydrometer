@@ -2,6 +2,7 @@
 #include <Arduino_HTS221.h>
 //#include <ArduinoBLE.h>
 
+float timeOld;
 /*
 // Randomly generated v4 uuid
 BLEService hydrometerService("cdde75fc-0526-4a8d-96a2-d79cccf619e9");
@@ -45,15 +46,16 @@ void setup() {
 }
 
 void printTempReadings(float tempC, float tempF) {
-  Serial.print("TEMPERATURE ------------------------");
+  Serial.println("TEMPERATURE ------------------------");
   Serial.print(tempC);
   Serial.print("°C = ");
   Serial.print(tempF);
   Serial.print("°F");
+  Serial.println('\n');
 }
 
 void printAccelReadings(float x, float y, float z) {
-  Serial.print("ACCELEROMETER ----------------------");
+  Serial.println("ACCELEROMETER ----------------------");
   Serial.print("x = ");
   Serial.print(x);
   Serial.print(",\ty = ");
@@ -64,7 +66,7 @@ void printAccelReadings(float x, float y, float z) {
 }
 
 void printGyroReadings(float x, float y, float z) {
-  Serial.print("GYROSCOPE --------------------------");
+  Serial.println("GYROSCOPE --------------------------");
   Serial.print("x = ");
   Serial.print(x);
   Serial.print(",\ty = ");
@@ -77,28 +79,28 @@ void printGyroReadings(float x, float y, float z) {
 void loop() {
   float acc_x, acc_y, acc_z, acc[3];
   float gyro_x, gyro_y, gyro_z, gyro[3];
-  float temperature;
+
+  while(1) {
+    // Fetch and print temperature values
+    printTempReadings(HTS.readTemperature(CELSIUS), HTS.readTemperature(FAHRENHEIT));
   
-  // Fetch and print temperature values
-  temperature = HTS.readTemperature(CELSIUS);
-  printTempReadings(temperature, HTS.readTemperature(FAHRENHEIT));
-
-  // Fetch and print accelerometer values
-  if (IMU.accelerationAvailable()) {
-    IMU.readAcceleration(acc_x, acc_y, acc_z);
-    acc[0] = acc_x;
-    acc[1] = acc_y;
-    acc[2] = acc_z;
-    printAccelReadings(acc_x, acc_y, acc_z);
-  }
-
-  // Fetch and print gyroscope values
-  if (IMU.gyroscopeAvailable()) {
-    IMU.readGyroscope(gyro_x, gyro_y, gyro_z);
-    gyro[0] = gyro_x;
-    gyro[1] = gyro_y;
-    gyro[2] = gyro_z;
-    printGyroReadings(gyro_x, gyro_y, gyro_z);
+    // Fetch and print accelerometer values
+    if (IMU.accelerationAvailable()) {
+      IMU.readAcceleration(acc_x, acc_y, acc_z);
+      acc[0] = acc_x;
+      acc[1] = acc_y;
+      acc[2] = acc_z;
+      printAccelReadings(acc_x, acc_y, acc_z);
+    }
+  
+    // Fetch and print gyroscope values
+    if (IMU.gyroscopeAvailable()) {
+      IMU.readGyroscope(gyro_x, gyro_y, gyro_z);
+      gyro[0] = gyro_x;
+      gyro[1] = gyro_y;
+      gyro[2] = gyro_z;
+      printGyroReadings(gyro_x, gyro_y, gyro_z);
+    }
   }
 
   //floatangle = tiltAngle(gyro, acc);
@@ -108,6 +110,6 @@ void loop() {
   Serial.println(hydrometerService.uuid());
   */
   
-  Serial.println("Looping");
-  delay(3000);
+  Serial.println();
+  delay(1000);
 }
