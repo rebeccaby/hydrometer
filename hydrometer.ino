@@ -164,7 +164,7 @@ void checkLEDOutput(float tempF, float pitch, float yaw) {
   // Checks if pitch and yaw angles are in the acceptable ranges
   // 90 degrees pitch -> pointing up
   // 0 degrees yaw -> pointing up
-  if(pitch_acc >= 75.0 && pitch_acc <= 105.0 && yaw_acc >= -20.0 && yaw_acc <= 20.0) {
+  if(pitch_acc >= 80.0 && pitch_acc <= 100.0 && yaw_acc >= -20.0 && yaw_acc <= 20.0) {
     digitalWrite(GREEN, LOW);
     digitalWrite(RED, HIGH);
   }
